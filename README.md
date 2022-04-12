@@ -15,6 +15,8 @@ The client folder represents the frontend of the application created in ReactJs.
 
 The deeplab model is aswell implemented on the branch 'deeplab'. Deeplab works for the image upload, but there were perfomance issues when trying to implement it in real-time(even-though a quantized model was used). My final solution is with the bodypix model, but my implementation with deelab is also available.
 
+If you inspect the page you may see a warning from React. The error accours because chakra-ui has to update its components for React18(everything works fine, I usually use chakra-ui for my frontend, but this is a new issue I noticed in the middle of development).
+
 ## Usage ##
 
 To run the project locally first got to the server folder :
