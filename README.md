@@ -2,9 +2,8 @@
 
 ![](./record.gif)
 
-This project was created to SHowcase body segmentation via uploading an image or real-time segmentaion with a camera.
+This project was created to showcases body segmentation via uploading an image or real-time segmentaion with a camera.
 
-The project is available on : 
 
 ## Project Structure ##
 + server
@@ -26,7 +25,11 @@ To run the project locally first got to the server folder :
  npm i
  npm start
 ```
-and then create a .env file and write in:
+if there is an error while installing opcv4nodejs, make sure yo have cmake installed
+```
+sudo apt-get -y install cmake 
+```
+and then create a .env file in the server folder and write in:
 ```
 DATABASE_URL="mongodb+srv://dbUser:123@cluster0.nmknw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 PORT=8000
