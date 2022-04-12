@@ -15,15 +15,6 @@ The client folder represents the frontend of the application created in ReactJs.
 
 The deeplab model is aswell implemented on the branch 'deeplab'. Deeplab works for the image upload, but there were perfomance issues when trying to implement it in real-time(even-though a quantized model was used). My final solution is with the bodypix model, but my implementation with deelab is also available.
 
-
-## Setup locally ##
-
-```
-python3 -m venv unet
-source unet/bin/activate
-pip install -r requirements.txt
-```
-
 ## Usage ##
 
 To run the project locally first got to the server folder :
@@ -47,9 +38,6 @@ After that go to the client folder:
  npm i
  npm start
 ```
-
-
 Demo:
 
-
-![](record.gif)
+![](./record.gif)
