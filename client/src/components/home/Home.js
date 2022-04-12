@@ -105,6 +105,7 @@ const Home = () => {
               rounded={'full'}
               px={6}
               placeholder="Click to upload image"
+              accept="image/*"
             />
             <Input
               type="submit"
