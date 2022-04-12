@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "curl -sf https://gobinaries.com/tj/node-prune | PREFIX=. sh&&./node-prune"
+
   },
   "author": "",
   "license": "ISC",
