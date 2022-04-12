@@ -40,6 +40,4 @@ After that go to the client folder:
  npm i
  npm start
 ```
-Demo:
-
 ![](./record.gif)
