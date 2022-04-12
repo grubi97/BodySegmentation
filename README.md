@@ -1,5 +1,6 @@
 # BodySegmentation
 
+![](./record.gif)
 
 This project was created to SHowcase body segmentation via uploading an image or real-time segmentaion with a camera.
 
@@ -39,5 +40,4 @@ After that go to the client folder:
  cd client
  npm i
  npm start
-```
-![](./record.gif)
+
