@@ -1,6 +1,5 @@
 import { Flex, Stack, Text } from '@chakra-ui/layout';
-import { ReactElement } from 'react';
-
+// Feature component used in home for icons
 const Feature = ({ text, icon, iconBg }) => {
   return (
     <Stack direction={'row'} align={'center'}>

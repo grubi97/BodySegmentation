@@ -1,3 +1,5 @@
+
+/*establishing connection to database*/
 const mongoose = require("mongoose");
 const mongoString = process.env.DATABASE_URL;
 

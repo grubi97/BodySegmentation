@@ -1,62 +1,73 @@
-import { useRef } from 'react';
+
+import { useEffect, useRef } from 'react';
 import Webcam from 'react-webcam';
-import loadModel from '../../utils/model';
 import * as tf from '@tensorflow/tfjs';
+import * as bodyPix from "@tensorflow-models/body-pix";
+
 tf.enableProdMode();
+
 
 const Camera = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const runSegment = async () => {
+  const runBodysegment = async () => {
+    //load model that is quantized for better performance
+    const net =await bodyPix.load({
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      multiplier: 0.75,
+      quantBytes: 2
+    });
+    console.log("BodyPix model loaded.");
+    //  Loop every 100 ms
     setInterval(() => {
-      segmentation();
-    }, 1000);
+      detect(net);
+    }, 100);
   };
 
-  const segmentation = async () => {
+  const detect = async (net) => {
+    // Check data is available
     if (
-      typeof webcamRef.current !== 'undefined' &&
+      typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
       webcamRef.current.video.readyState === 4
     ) {
       // Get Video Properties
       const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
-      let segmMap;
-      let height;
-      let width;
-      await loadModel(video).then(model =>
-        model.segment(video).then(output => {
-          segmMap = output.segmentationMap;
-          height = output.height;
-          width = output.width;
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
 
-          // Set video width
-          webcamRef.current.video.width = width;
-          webcamRef.current.video.height = height;
+      const person = await net.segmentPerson(video);
+      const mask = bodyPix.toMask(person);
+      const opacity = 0.6;
+      const flipHorizontal = false;
+      const maskBlurAmount = 1;
+      const ctx = canvasRef.current
 
-          canvasRef.current.width = width;
-          canvasRef.current.height = height;
+      //use requestAnimationFrame for better performance, update animation onscreen
+      requestAnimationFrame(()=>{
+        bodyPix.drawMask(
+          ctx,
+          video,
+          mask,
+          opacity,
+          maskBlurAmount,
+          flipHorizontal
+        );});
 
-          const ctx = canvasRef.current.getContext('2d');
-
-          // console.log(segmMap)
-          const out = new ImageData(segmMap, width, height);
-          console.log(out);
-          ctx.putImageData(out, 0, 0);
-        })
-      );
-
-      // const opacity = 0.7;
-      // const maskBlurAmount = 0;
-      // Set canvas height and width
     }
   };
-  runSegment();
+
+  useEffect(()=>{runBodysegment()}, [runBodysegment]);
 
   return (
     <>
+
       <Webcam
         ref={webcamRef}
         style={{
@@ -71,6 +82,7 @@ const Camera = () => {
           height: 513,
         }}
       />
+
 
       <canvas
         ref={canvasRef}

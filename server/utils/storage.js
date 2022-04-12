@@ -1,3 +1,4 @@
+/*image storage settings*/ 
 const multer = require("multer");
 
 var storage = multer.diskStorage({

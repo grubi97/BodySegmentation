@@ -1,21 +1,14 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './components/layout/App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import "./style/style.css";
 
 
-ReactDOM.render(
-  <ChakraProvider>
-  <StrictMode>
-    <App />
-  </StrictMode>
-  </ChakraProvider>,
-  document.getElementById('root')
-);
 
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(<App />);
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
